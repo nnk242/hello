@@ -1,114 +1,42 @@
 <template>
     <div class="stage">
-        <div class="card" v-if="dataCard">
+        <div class="card" v-if="!dataCard">
             <div class="card-behind">
                 <img :src="img.cardBehind">
             </div>
         </div>
         <div class="card" v-else>
             <div class="card-top">
-                <h4 class="black-text">J</h4>
-                <club/>
+                <h4 :class="arr_black.indexOf(dataCard.suit) === -1 ? 'red-text' : 'black-text'">{{ dataCard.rank }}</h4>
+                <suit :suit="dataCard.suit"/>
             </div>
             <div class="card-middle">
-                <img :src="img.jc">
+                <template v-if="arr_rank_img.indexOf(dataCard.rank) === -1">
+                    <suit :suit="dataCard.suit"/>
+                </template>
+                <template v-else>
+                    <img-card :suit="dataCard.suit" :rank="dataCard.rank"/>
+                </template>
             </div>
             <div class="card-bottom">
-                <club/>
-                <h4 class="black-text">J</h4>
-            </div>
-        </div>
-
-
-        //suit diamond
-        <div class="card">
-            <div class="card-top">
-                <h4 class="red-text">A</h4>
-                <diamond/>
-            </div>
-            <div class="card-middle">
-                <diamond/>
-            </div>
-            <div class="card-bottom">
-                <diamond/>
-                <h4 class="red-text">A</h4>
-            </div>
-        </div>
-        //suit heart
-        <div class="card">
-            <div class="card-top">
-                <h4 class="red-text">A</h4>
-                <heart/>
-            </div>
-            <div class="card-middle">
-                <heart/>
-            </div>
-            <div class="card-bottom">
-                <heart/>
-                <h4 class="red-text">A</h4>
-            </div>
-        </div>
-        //suit spade
-        <div class="card">
-            <div class="card-top">
-                <h4 class="black-text">A</h4>
-                <spade/>
-            </div>
-            <div class="card-middle">
-                <spade/>
-            </div>
-            <div class="card-bottom">
-                <spade/>
-                <h4 class="black-text">A</h4>
-            </div>
-        </div>
-        //suit club
-        <div class="card">
-            <div class="card-top">
-                <h4 class="black-text">A</h4>
-                <club/>
-            </div>
-            <div class="card-middle">
-                <club/>
-            </div>
-            <div class="card-bottom">
-                <club/>
-                <h4 class="black-text">A</h4>
+                <suit :suit="dataCard.suit"/>
+                <h4 :class="arr_black.indexOf(dataCard.suit) === -1 ? 'red-text' : 'black-text'">{{ dataCard.rank
+                    }}</h4>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-    import spade from '@/components/Card/Suit/spade'
-    import heart from '@/components/Card/Suit/heart'
-    import diamond from '@/components/Card/Suit/diamond'
-    import club from '@/components/Card/Suit/club'
-
-    import jc from '@/assets/card/JQK/jc.svg'
-    import jd from '@/assets/card/JQK/jd.svg'
-    import jh from '@/assets/card/JQK/jh.svg'
-    import js from '@/assets/card/JQK/js.svg'
-
-    import qc from '@/assets/card/JQK/jc.svg'
-    import qd from '@/assets/card/JQK/jd.svg'
-    import qh from '@/assets/card/JQK/jh.svg'
-    import qs from '@/assets/card/JQK/js.svg'
-
-    import kc from '@/assets/card/JQK/jc.svg'
-    import kd from '@/assets/card/JQK/jd.svg'
-    import kh from '@/assets/card/JQK/jh.svg'
-    import ks from '@/assets/card/JQK/js.svg'
+    import suit from './Suit/index'
+    import imgCard from './Rank/JQK/index'
 
     import cardBehind from '@/assets/card/behind.svg'
 
     export default {
         name: "card",
         components: {
-            spade,
-            heart,
-            diamond,
-            club
+            suit, imgCard
         },
         props: {
             dataCard: {
@@ -118,6 +46,8 @@
         },
         data: () => {
             return {
+                arr_rank_img: ['J', 'Q', 'K'],
+                arr_black: ['club', 'spade'],
                 ranks: ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'],
                 suits: ['♥', '♦', '♠', '♣'],
                 cards: [],
@@ -130,9 +60,6 @@
                 shuffleSpeed: 'shuffleMedium',
                 shuffleTypes: ['Slow', 'Medium', 'Fast'],
                 img: {
-                    jc, jd, jh, js,
-                    qc, qd, qh, qs,
-                    kc, kd, kh, ks,
                     cardBehind
                 }
             }
@@ -180,6 +107,7 @@
         }
 
         &-middle {
+            height: 100%;
             width: 60%;
             margin: auto;
             padding: 2px;
