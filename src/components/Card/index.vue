@@ -51,14 +51,6 @@
                 ranks: ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'],
                 suits: ['♥', '♦', '♠', '♣'],
                 cards: [],
-                suitColor: {
-                    '♠': 'black',
-                    '♣': 'black',
-                    '♦': 'red',
-                    '♥': 'red',
-                },
-                shuffleSpeed: 'shuffleMedium',
-                shuffleTypes: ['Slow', 'Medium', 'Fast'],
                 img: {
                     cardBehind
                 }
@@ -107,7 +99,6 @@
         }
 
         &-middle {
-            height: 100%;
             width: 60%;
             margin: auto;
             padding: 2px;

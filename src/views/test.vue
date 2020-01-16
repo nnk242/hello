@@ -1,10 +1,14 @@
 <template>
-    <h1>test</h1>
+    <arena />
 </template>
 
 <script>
+    import arena from '@/components/Arena/index'
     export default {
-        name: "test"
+        name: "test",
+        components: {
+            arena
+        }
     }
 </script>
 
